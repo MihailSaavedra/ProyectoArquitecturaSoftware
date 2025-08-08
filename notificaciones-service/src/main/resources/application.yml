@@ -1,0 +1,23 @@
+server:
+  port: 8083 # Un puerto único para este servicio
+
+spring:
+  application:
+    name: notificaciones-service # Su nombre para registrarse en Eureka (opcional en este caso, pero buena práctica)
+
+  # Configuración para conectarse a RabbitMQ
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+# Aunque no se conecta directamente a otros servicios, es bueno que se registre en Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ # Indica al gateway dónde está Eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true

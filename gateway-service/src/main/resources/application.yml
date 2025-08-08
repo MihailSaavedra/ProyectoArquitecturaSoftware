@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service # Nombre del servicio para Eureka
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Habilita el descubrimiento de servicios desde Eureka
+      routes:
+        - id: publicaciones-service-route
+          uri: lb://publicaciones-service # lb = balanceo de carga hacia el servicio llamado PUBLICACIONES-SERVICE
+          predicates:
+            - Path=/api/publicaciones/** # Cualquier petición a /api/publicaciones/... será enrutada
+        - id: auth-service-route
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+        - id: notificaciones-service-route
+          uri: lb://notificaciones-service
+          predicates:
+            - Path=/api/notificaciones/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ # Indica al gateway dónde está Eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true

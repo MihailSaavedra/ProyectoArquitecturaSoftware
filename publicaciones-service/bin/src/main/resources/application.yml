@@ -1,0 +1,21 @@
+server:
+  port: 0 # Usa un puerto aleatorio disponible
+
+spring:
+  application:
+    name: PUBLICACIONES-SERVICE # El nombre DEBE ESTAR EN MAYÚSCULAS para que funcione con la config del gateway
+  h2:
+    console:
+      enabled: true # Habilita la consola H2 para ver la base de datos fácilmente
+      path: /h2-console
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update # Actualiza automáticamente el esquema de la base de datos
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

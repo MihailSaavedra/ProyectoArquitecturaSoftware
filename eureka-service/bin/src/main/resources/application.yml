@@ -1,0 +1,7 @@
+server:
+  port: 8761 # Puerto por defecto para Eureka
+
+eureka:
+  client:
+    register-with-eureka: false # Este es el servidor, no se registra a sí mismo
+    fetch-registry: false
